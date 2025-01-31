@@ -33,7 +33,18 @@ app.post('/get-data', async (req, res) => {
         return acc;
       }, {taoPerDay: 0, stake: 0, pendingEmission: 0});
 
-      res.json({ text: `🚨${netuid} ⛏️${out.length} 🔑${coldkey.substr(0, 7)} 🏠${result.stake} 🏅${result.taoPerDay} 🎯${result.pendingEmission}` });
+      res.json({
+        text: `🚨${netuid} ⛏️${out.length} 🔑${coldkey.substr(0, 7)} 🏠${result.stake} 🏅${result.taoPerDay} 🎯${result.pendingEmission}`,
+        blocks: [
+          {
+            "type": "section",
+            "text": {
+              "type": "mrkdwn",
+              "text": `🚨${netuid} ⛏️${out.length} 🔑${coldkey.substr(0, 7)} 🏠${result.stake} 🏅${result.taoPerDay} 🎯${result.pendingEmission}`
+            }
+          }
+        ]
+      });
     }).catch(error => {
       console.log(error);
       res.json({ text: error });
